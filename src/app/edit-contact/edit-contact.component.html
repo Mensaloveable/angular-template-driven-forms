@@ -1,0 +1,159 @@
+<div class="content">
+  <h1 class="header">Edit Contact</h1>
+  <form (ngSubmit)="saveContact(contactForm)" #contactForm="ngForm">
+    <section>
+      <nav>Name/Info</nav>
+      <div>
+        <input type="hidden" name="id" [ngModel]="contact.id" />
+        <input
+          placeholder="First Name"
+          [(ngModel)]="contact.firstName"
+          name="firstName"
+          #firstName="ngModel"
+          required
+          minlength="3"
+          [class.error]="firstName.invalid && firstName.touched"
+        />
+        <em *ngIf="firstName.errors?.['required'] && firstName.touched">
+          First name is required</em
+        >
+        <em *ngIf="firstName.errors?.['minlength'] && firstName.touched">
+          First name must be at least 3 characters</em
+        >
+        <input
+          placeholder="Last Name"
+          [(ngModel)]="contact.lastName"
+          name="lastName"
+          required
+          #lastName="ngModel"
+          [class.error]="lastName.invalid && lastName.touched"
+        />
+        <em *ngIf="lastName.invalid && lastName.touched">
+          Last name is required</em
+        >
+        <input
+          placeholder="Date of Birth"
+          [(ngModel)]="contact.dateOfBirth"
+          name="dateOfBirth"
+        />
+        <div>
+          <span>Favorites Ranking</span>
+          <input
+            placeholder="Favorites Ranking"
+            [(ngModel)]="contact.favoritesRanking"
+            type="range"
+            min="0"
+            max="5"
+            name="favoritesRanking"
+          />
+          <span>{{ contact.favoritesRanking }}</span>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="personal"
+            [(ngModel)]="contact.personal"
+          />
+          Personal
+        </div>
+      </div>
+    </section>
+    <section>
+      <nav>Phone</nav>
+      <div class="flex-column" ngModelGroup="phone">
+        <div class="flex-group">
+          <input
+            placeholder="Phone"
+            [(ngModel)]="contact.phone.phoneNumber"
+            name="phoneNumber"
+          />
+          <img src="/assets/plus-grey-blue.png" class="add" />
+        </div>
+        <div class="radio">
+          <span *ngFor="let phoneType of phoneTypes">
+            <input
+              type="radio"
+              [value]="phoneType.value"
+              [(ngModel)]="contact.phone.phoneType"
+              name="phoneType."
+            />
+            {{ phoneType.title }}
+          </span>
+        </div>
+      </div>
+    </section>
+    <section>
+      <nav>Address</nav>
+      <div>
+        <div
+          class="address"
+          ngModelGroup="address"
+          #addressGroup="ngModelGroup"
+          [class.error]="addressGroup.invalid && addressGroup.dirty"
+        >
+          <div class="flex-group">
+            <input
+              placeholder="Address"
+              [(ngModel)]="contact.address.streetAddress"
+              name="streetAddress"
+              required
+            />
+            <img src="/assets/plus-grey-blue.png" class="add" />
+          </div>
+          <input
+            placeholder="City"
+            [(ngModel)]="contact.address.city"
+            name="city"
+            required
+          />
+          <input
+            placeholder="State/Region"
+            [(ngModel)]="contact.address.state"
+            name="state"
+            required
+          />
+          <input
+            placeholder="Zip/Postal Code"
+            [(ngModel)]="contact.address.postalCode"
+            name="postalCode"
+            required
+          />
+          <select [(ngModel)]="contact.address.addressType" name="addressType">
+            <option
+              *ngFor="let addressType of addressTypes"
+              [value]="addressType.value"
+            >
+              {{ addressType.title }}
+            </option>
+          </select>
+        </div>
+        <em *ngIf="addressGroup.invalid && addressGroup.dirty"
+          >Incomplete Address</em
+        >
+      </div>
+    </section>
+    <section>
+      <nav>Notes</nav>
+      <div>
+        <textarea
+          [class.error]="note.invalid"
+          placeholder="Notes"
+          rows="3"
+          [(ngModel)]="contact.note"
+          name="note"
+          [restrictedWords]="restrictedWords"
+          #note="ngModel"
+        ></textarea>
+        <em *ngIf="note.errors?.['restrictedWords']"
+          >Restricted word found: {{note.errors?.['restrictedWords'] }}</em
+        >
+      </div>
+    </section>
+    <div class="buttons">
+      <button class="secondary" type="button">Cancel</button>
+      <button class="primary" type="submit" [disabled]="contactForm.invalid">
+        Save
+      </button>
+    </div>
+  </form>
+</div>
