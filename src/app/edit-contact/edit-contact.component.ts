@@ -44,7 +44,7 @@ export class EditContactComponent implements OnInit {
     lastName: "",
     dateOfBirth: null,
     favoritesRanking: 0,
-    phone: { phoneNumber: "", phoneType: "" },
+    phones: [{ phoneNumber: "", phoneType: "" }],
     address: {
       streetAddress: "",
       city: "",
@@ -70,6 +70,9 @@ export class EditContactComponent implements OnInit {
       next: () => this.router.navigate(["/contacts"]),
       error: (err) => console.error(err),
     });
-    console.log(this.contact);
+  }
+
+  onAddPhone() {
+    this.contact.phones.push({ phoneNumber: "", phoneType: "" });
   }
 }

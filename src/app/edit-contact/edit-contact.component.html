@@ -61,26 +61,36 @@
       </div>
     </section>
     <section>
-      <nav>Phone</nav>
-      <div class="flex-column" ngModelGroup="phone">
-        <div class="flex-group">
-          <input
-            placeholder="Phone"
-            [(ngModel)]="contact.phone.phoneNumber"
-            name="phoneNumber"
-          />
-          <img src="/assets/plus-grey-blue.png" class="add" />
-        </div>
-        <div class="radio">
-          <span *ngFor="let phoneType of phoneTypes">
+      <nav>Phones</nav>
+      <div class="flex-column" ngModelGroup="phones">
+        <div
+          *ngFor="let phone of contact.phones; let i = index"
+          class="flex-column"
+        >
+          <div class="flex-group">
             <input
-              type="radio"
-              [value]="phoneType.value"
-              [(ngModel)]="contact.phone.phoneType"
-              name="phoneType."
+              placeholder="Phone"
+              [(ngModel)]="phone.phoneNumber"
+              name="phoneNumber{{ i }}"
             />
-            {{ phoneType.title }}
-          </span>
+            <img
+              src="/assets/plus-grey-blue.png"
+              class="add"
+              (click)="onAddPhone()"
+            />
+          </div>
+
+          <div class="radio">
+            <span *ngFor="let phoneType of phoneTypes">
+              <input
+                type="radio"
+                [value]="phoneType.value"
+                [(ngModel)]="phone.phoneType"
+                name="phoneType{{ i }}"
+              />
+              {{ phoneType.title }}
+            </span>
+          </div>
         </div>
       </div>
     </section>
