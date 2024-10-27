@@ -4,6 +4,7 @@
     <section>
       <nav>Name/Info</nav>
       <div>
+        <con-profile-icon-selector [(ngModel)]="contact.icon" name="icon" />
         <input type="hidden" name="id" [ngModel]="contact.id" />
         <input
           placeholder="First Name"

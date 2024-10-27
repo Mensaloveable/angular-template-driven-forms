@@ -10,6 +10,7 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { ContactsService } from "../contacts/contacts.service";
 import { RestrictedWordsValidator } from "../validator/restricted-words-validator-directives";
 import { DateValueAccessorDirective } from "../date-value-accessor/date-value-accessor.directive";
+import { ProfileIconSelectorComponent } from "../profile-icon-selector/profile-icon-selector.component";
 
 @Component({
   imports: [
@@ -17,6 +18,7 @@ import { DateValueAccessorDirective } from "../date-value-accessor/date-value-ac
     FormsModule,
     RestrictedWordsValidator,
     DateValueAccessorDirective,
+    ProfileIconSelectorComponent,
   ],
   standalone: true,
   templateUrl: "./edit-contact.component.html",
@@ -35,6 +37,7 @@ export class EditContactComponent implements OnInit {
 
   contact: Contact = {
     id: "",
+    icon: "",
     personal: false,
     note: "",
     firstName: "",
