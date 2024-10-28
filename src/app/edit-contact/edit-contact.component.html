@@ -95,53 +95,63 @@
       </div>
     </section>
     <section>
-      <nav>Address</nav>
+      <nav>Addresses</nav>
+
       <div>
         <div
           class="address"
-          ngModelGroup="address"
+          ngModelGroup="addresses"
           #addressGroup="ngModelGroup"
           [class.error]="addressGroup.invalid && addressGroup.dirty"
         >
-          <div class="flex-group">
+          <div
+            *ngFor="let address of contact.addresses; let i = index"
+            class="flex-column"
+          >
+            <div class="flex-group">
+              <input
+                placeholder="Address"
+                [(ngModel)]="address.streetAddress"
+                name="streetAddress{{ i }}"
+                required
+              />
+              <img
+                src="/assets/plus-grey-blue.png"
+                class="add"
+                (click)="onAddAddress()"
+              />
+            </div>
             <input
-              placeholder="Address"
-              [(ngModel)]="contact.address.streetAddress"
-              name="streetAddress"
+              placeholder="City"
+              [(ngModel)]="address.city"
+              name="city{{ i }}"
               required
             />
-            <img src="/assets/plus-grey-blue.png" class="add" />
+            <input
+              placeholder="State/Region"
+              [(ngModel)]="address.state"
+              name="state{{ i }}"
+              required
+            />
+            <input
+              placeholder="Zip/Postal Code"
+              [(ngModel)]="address.postalCode"
+              name="postalCode{{ i }}"
+              required
+            />
+            <select [(ngModel)]="address.addressType" name="addressType{{ i }}">
+              <option
+                *ngFor="let addressType of addressTypes"
+                [value]="addressType.value"
+              >
+                {{ addressType.title }}
+              </option>
+            </select>
           </div>
-          <input
-            placeholder="City"
-            [(ngModel)]="contact.address.city"
-            name="city"
-            required
-          />
-          <input
-            placeholder="State/Region"
-            [(ngModel)]="contact.address.state"
-            name="state"
-            required
-          />
-          <input
-            placeholder="Zip/Postal Code"
-            [(ngModel)]="contact.address.postalCode"
-            name="postalCode"
-            required
-          />
-          <select [(ngModel)]="contact.address.addressType" name="addressType">
-            <option
-              *ngFor="let addressType of addressTypes"
-              [value]="addressType.value"
-            >
-              {{ addressType.title }}
-            </option>
-          </select>
+          <em *ngIf="addressGroup.invalid && addressGroup.dirty"
+            >Incomplete Address</em
+          >
         </div>
-        <em *ngIf="addressGroup.invalid && addressGroup.dirty"
-          >Incomplete Address</em
-        >
       </div>
     </section>
     <section>

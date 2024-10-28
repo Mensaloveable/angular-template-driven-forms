@@ -45,13 +45,15 @@ export class EditContactComponent implements OnInit {
     dateOfBirth: null,
     favoritesRanking: 0,
     phones: [{ phoneNumber: "", phoneType: "" }],
-    address: {
-      streetAddress: "",
-      city: "",
-      state: "",
-      postalCode: "",
-      addressType: "",
-    },
+    addresses: [
+      {
+        streetAddress: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        addressType: "",
+      },
+    ],
   };
 
   ngOnInit() {
@@ -74,5 +76,15 @@ export class EditContactComponent implements OnInit {
 
   onAddPhone() {
     this.contact.phones.push({ phoneNumber: "", phoneType: "" });
+  }
+
+  onAddAddress() {
+    this.contact.addresses.push({
+      streetAddress: "",
+      city: "",
+      state: "",
+      postalCode: "",
+      addressType: "",
+    });
   }
 }
